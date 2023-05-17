@@ -716,6 +716,22 @@
       }
     </script>
     <script>
+
+      const queryString = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
+      
+      const gateArray=[[1.325724, 103.807897],[1.326669, 103.806287],[1.328887, 103.802907],[1.327876, 103.801873],[1.326028, 103.800633]];
+      
+      
+      const gateNum = (urlParams.get('gate')||1);
+      
+     
+      const centerCoords = gateArray[gateNum-1];
+    
+      const lati=gateArray[gateNum-1][0];
+      const long=gateArray[gateNum-1][1];
+     
+
       const CONFIGURATION = {
         "capabilities": {"search":false,"distances":true,"directions":true,"contacts":false,"atmospheres":false,"thumbnails":false},
         "pois": [
@@ -727,7 +743,7 @@
         ],
         "centerMarker": {"icon":"circle"},
         "mapRadius": 1500,
-        "mapOptions": {"center":{"lat":1.3280274,"lng":103.8015376},"fullscreenControl":true,"mapTypeControl":true,"streetViewControl":false,"zoom":16,"zoomControl":true,"maxZoom":20,"mapId":""},
+        "mapOptions": {"center":{"lat":lati,"lng":long},"fullscreenControl":true,"mapTypeControl":true,"streetViewControl":false,"zoom":16,"zoomControl":true,"maxZoom":20,"mapId":""},
         "mapsApiKey": "AIzaSyC_Lw44mVq11v4mjbqwFERrK-wv4R5iHic"
       };
 
