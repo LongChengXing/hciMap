@@ -727,13 +727,17 @@
       
       
       const gateNum = (urlParams.get('gate')||1);
-      
-     
-      const centerCoords = gateArray[gateNum-1];
-    
       const lati=gateArray[gateNum-1][0];
       const long=gateArray[gateNum-1][1];
+      
      
+      
+          
+     
+      const centerCoords = gateArray[gateNum-1];
+      
+      
+      
       const CONFIGURATION = {
         "capabilities": {"search":false,"distances":true,"directions":true,"contacts":false,"atmospheres":false,"thumbnails":false},
         "pois": [
@@ -749,6 +753,26 @@
         "mapsApiKey": "AIzaSyC_Lw44mVq11v4mjbqwFERrK-wv4R5iHic"
       };
 
+      if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+              (position) => {
+                const pos = {
+                  lat: position.coords.latitude,
+                  lng: position.coords.longitude,
+                }; 
+                console.log(pos)
+                console.log(CONFIGURATION.mapOptions.center)
+                CONFIGURATION.mapOptions.center.lat=pos.lat;
+                CONFIGURATION.mapOptions.center.lng=pos.lng;
+                console.log(CONFIGURATION.mapOptions.center)
+              },
+              () => {
+                handleLocationError(true, infoWindow, map.getCenter());
+              }
+            );
+          }
+      
+      
       //x=fetch(`https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyC_Lw44mVq11v4mjbqwFERrK-wv4R5iHic`).then(data=>data.json()).then(data=>console.log(data));
 
       let map, infoWindow;
@@ -757,35 +781,36 @@
         new NeighborhoodDiscovery(CONFIGURATION);
 
         
-        infoWindow = new google.maps.InfoWindow();
+        // infoWindow = new google.maps.InfoWindow();
 
-        const locationButton = document.createElement("button");
+        // const locationButton = document.createElement("button");
 
-        locationButton.textContent = "Pan to Current Location";
-        locationButton.classList.add("custom-map-control-button");
+        // locationButton.textContent = "Pan to Current Location";
+        // locationButton.classList.add("custom-map-control-button");
         //map.controls[google.maps.ControlPosition.TOP_CENTER].push(locationButton);
-        document.querySelector("#seggs").addEventListener("click", () => {
-          // Try HTML5 geolocation.
-          if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(
-              (position) => {
-                const pos = {
-                  lat: position.coords.latitude,
-                  lng: position.coords.longitude,
-                }; 
-              console.log(pos)
+        // document.querySelector("#seggs").addEventListener("click", () => {
+        //   // Try HTML5 geolocation.
+        //   if (navigator.geolocation) {
+        //     navigator.geolocation.getCurrentPosition(
+        //       (position) => {
+        //         const pos = {
+        //           lat: position.coords.latitude,
+        //           lng: position.coords.longitude,
+        //         }; 
+        //       CONFIGURATION.mapOptions.center.lat=pos.lat;
+        //       CONFIGURATION.mapOptions.center.lng=pos.lng;
 
                 
-              },
-              () => {
-                handleLocationError(true, infoWindow, map.getCenter());
-              }
-            );
-          } else {
-            // Browser doesn't support Geolocation
-            handleLocationError(false, infoWindow, map.getCenter());
-          }
-        });
+        //       },
+        //       () => {
+        //         handleLocationError(true, infoWindow, map.getCenter());
+        //       }
+        //     );
+        //   } else {
+        //     // Browser doesn't support Geolocation
+        //     handleLocationError(false, infoWindow, map.getCenter());
+        //   }
+        // });
       }
       window.initMap = initMap;
 
