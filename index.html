@@ -755,14 +755,16 @@
       
       function initMap() {
         new NeighborhoodDiscovery(CONFIGURATION);
+
         
+        infoWindow = new google.maps.InfoWindow();
 
         const locationButton = document.createElement("button");
 
         locationButton.textContent = "Pan to Current Location";
         locationButton.classList.add("custom-map-control-button");
-        map.controls[google.maps.ControlPosition.TOP_CENTER].push(locationButton);
-        locationButton.addEventListener("click", () => {
+        //map.controls[google.maps.ControlPosition.TOP_CENTER].push(locationButton);
+        document.querySelector("#seggs").addEventListener("click", () => {
           // Try HTML5 geolocation.
           if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
@@ -770,12 +772,10 @@
                 const pos = {
                   lat: position.coords.latitude,
                   lng: position.coords.longitude,
-                };
+                }; 
+              console.log(pos)
 
-                infoWindow.setPosition(pos);
-                infoWindow.setContent("Location found.");
-                infoWindow.open(map);
-                map.setCenter(pos);
+                
               },
               () => {
                 handleLocationError(true, infoWindow, map.getCenter());
@@ -790,8 +790,9 @@
       window.initMap = initMap;
 
       function sayHi(){
-        console.log("piss");
+        console.log("piss")
       }
+     
       function filterList(){
         [...document.querySelectorAll('li')].forEach(x => {
           let text= this.search.value.trim();
@@ -808,8 +809,10 @@
         });
       }
 
-    inputField = document.querySelector('#search1');
-    inputField.addEventListener('keydown',sayHi)
+    
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelector("#search1").addEventListener('keyup', sayHi);
+    });
     </script>
     <script id="nd-place-results-tmpl" type="text/x-handlebars-template">
       {{#each places}}
@@ -877,6 +880,7 @@
       <div class="places-panel panel no-scroll">
         <div class="results">
           <input type="text" name="search1" id="search1"/>
+          <input type="button" id="seggs"/>
           <ul class="place-results-list"></ul>
         </div>
 
