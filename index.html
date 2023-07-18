@@ -719,7 +719,7 @@
       //start location
       const queryString = window.location.search;
       const urlParams = new URLSearchParams(queryString);
-      
+        
       const gateArray=[[1.325724, 103.807897],[1.326669, 103.806287],[1.328887, 103.802907],[1.327876, 103.801873],[1.326028, 103.800633]];
       
       
@@ -731,7 +731,6 @@
       const lati=gateArray[gateNum-1][0];
       const long=gateArray[gateNum-1][1];
      
-
       const CONFIGURATION = {
         "capabilities": {"search":false,"distances":true,"directions":true,"contacts":false,"atmospheres":false,"thumbnails":false},
         "pois": [
@@ -746,6 +745,9 @@
         "mapOptions": {"center":{"lat":lati,"lng":long},"fullscreenControl":true,"mapTypeControl":true,"streetViewControl":true,"zoom":16,"zoomControl":true,"maxZoom":20,"mapId":""},
         "mapsApiKey": "AIzaSyC_Lw44mVq11v4mjbqwFERrK-wv4R5iHic"
       };
+
+      fetch(` https://www.googleapis.com/geolocation/v1/geolocate?key=${CONFIGURATION['mapsApiKey']}`).then(data=>data.json()).then(data=>console.log(data))
+
 
       function initMap() {
         new NeighborhoodDiscovery(CONFIGURATION);
