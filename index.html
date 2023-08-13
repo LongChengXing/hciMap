@@ -30,12 +30,55 @@
         padding: 0;
       }
 
+      /*BUTTON AND SEARCHBAR*/
+      #searchBar { /* div containing the following two */
+        padding: 0.8em;
+        display: flex;
+        align-items: center;
+        width: fill;
+      }
+
+      #searchBar * { /* div containing the following two */
+        font-family: "Roboto", sans-serif;
+        border-color: rgba(0, 0, 0, 0.12);
+        border-width: 1 px;
+      }
+
+      #seggs { /* button */
+        box-sizing: border-box;
+        padding: 0.2em 1em;
+        margin-right: 0.5em;
+        text-align: center;
+        height: 3em;
+        border-radius: 0.5em;
+        background-color: auto;
+      }
+
+      #seggs:active{
+        background-color:#dedede;
+      }
+      
+      #searchButton:focus{
+        background-color:#dedede;
+        border-color:rgba(151, 151, 151, 0.12);
+      }
+       
+      #searchButton{ /* searchbar */
+        box-sizing: border-box;
+        padding: 0.5em 1em;
+        margin-right: 0.5em;
+        height: 3em;
+        border-radius: 10000000000000000000000000000000000000000000000000000000000000px;
+      }
+      /*====================*/
+    
       .neighborhood-discovery {
         box-sizing: border-box;
         font-family: "Roboto", sans-serif;
         height: 100%;
         position: relative;
         width: 100%;
+
       }
 
       .neighborhood-discovery a {
@@ -905,8 +948,10 @@
       
       <div class="places-panel panel no-scroll">
         <div class="results">
-          <input type="text" id="searchButton" onkeyup="filterList()"/>
-          <input type="button" id="seggs"/>
+          <div id = "searchBar">
+            <input type="text" id="searchButton" onkeyup="filterList()" placeholder="Search..."/>
+            <input type="button" id="seggs" value="🔍"/>
+          </div>
           <ul class="place-results-list"></ul>
         </div>
 
