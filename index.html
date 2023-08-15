@@ -13,6 +13,25 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
+
+<!--
+┈┈┈┈┈┈┈┈┈
+┈┈┈┈┈┈┈┈┈┈┈┈╭━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╮
+┈┈┈╭━━╮┈┈┈┈┈┃ IMPORTANT NOTE FOR TJ/CX/HK ┃
+┈┈╭╯┊◣╰━━━╮┈╰┳━━━━━━━━━━━━━━━━━━━━━━━━━━━╯
+┈┈┃┊┊┊╱▽▽▽┛┈┈┃┈┈
+┈┈┃┊┊┊▏━━━━━━╯┈┈
+━━╯┊┊┊╲△△△┓┈┈┈┈┈
+┊┊┊┊╭━━━━━╯┈┈┈┈┈
+
+NOTE mapsApiKey IS COMMENTED OUT RN TO SAVE USAGE. SEARCH THIS UP TO UNCOMMENT IT. 
+
+SEARCH API_COMMENT TO UNCOMMENT IT
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC_Lw44mVq11v4mjbqwFERrK-wv4R5iHic&callback=initMap&libraries=places,geometry&solution_channel=GMP_QB_neighborhooddiscovery_v2_cBC" async defer></script> is also commented out
+
+
+-->
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -52,6 +71,7 @@
         height: 3em;
         border-radius: 0.5em;
         background-color: auto;
+        width: auto;
       }
 
       #seggs:active{
@@ -65,13 +85,21 @@
        
       #searchButton{ /* searchbar */
         box-sizing: border-box;
+        flex: 1;
         padding: 0.5em 1em;
         margin-right: 0.5em;
         height: 3em;
         border-radius: 10000000000000000000000000000000000000000000000000000000000000px;
       }
-      /*====================*/
+      /*////////////////////////////////*/
+
+
+      /* TUTORIAL css ========================================*/
+     
     
+      /* /////////////////////////////////////////////////////*/
+
+
       .neighborhood-discovery {
         box-sizing: border-box;
         font-family: "Roboto", sans-serif;
@@ -793,7 +821,7 @@
         "centerMarker": {"icon":"circle"},
         "mapRadius": 1500,
         "mapOptions": {"center":{"lat":lati,"lng":long},"fullscreenControl":true,"mapTypeControl":true,"streetViewControl":true,"zoom":16,"zoomControl":true,"maxZoom":20,"mapId":""},
-        "mapsApiKey": "AIzaSyC_Lw44mVq11v4mjbqwFERrK-wv4R5iHic"
+        //API_COMMENT "mapsApiKey": "AIzaSyC_Lw44mVq11v4mjbqwFERrK-wv4R5iHic"
       };
 
       if (navigator.geolocation) {
@@ -878,6 +906,7 @@
         });
       }
 
+      
     
 //     document.addEventListener('DOMContentLoaded', () => {
 //       document.querySelector("#search1").addEventListener('keyup',filterList);
@@ -940,6 +969,7 @@
         </div>
       {{/if}}
 
+
       
     </script>
   </head>
@@ -978,6 +1008,179 @@
         <path d="M13 0C5.817 0 0 5.93 0 13.267c0 7.862 5.59 10.81 9.555 17.624C12.09 35.248 11.342 38 13 38c1.723 0 .975-2.817 3.445-7.043C20.085 24.503 26 21.162 26 13.267 26 5.93 20.183 0 13 0Z"/>
       </svg>
     </div>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC_Lw44mVq11v4mjbqwFERrK-wv4R5iHic&callback=initMap&libraries=places,geometry&solution_channel=GMP_QB_neighborhooddiscovery_v2_cBC" async defer></script>
+    <!-- API_COMMENT <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC_Lw44mVq11v4mjbqwFERrK-wv4R5iHic&callback=initMap&libraries=places,geometry&solution_channel=GMP_QB_neighborhooddiscovery_v2_cBC" async defer></script> -->
+    
+    
+    <!--TUTORIAL STYLE ======================================= -->
+    <style>
+    .tutorial-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 9999;
+        
+    }
+
+    .step {
+      display: flex;
+      flex:1;
+      flex-direction: column;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: white;
+      padding: 2em;
+      border-radius: 1em;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      max-width: 20em;
+      width: 16em;
+      height: 10em;
+      text-align: center;
+      justify-content: space-between;
+      font-family:"Roboto", sans-serif;       
+      
+    }
+
+      
+    p, h2, button{
+      margin: 0;
+      padding: 0;
+    }
+
+    p{
+      margin: 0.5em;
+      margin-top: 1em;
+    }
+    
+    p, h2{
+      flex:1;
+    }
+
+    .lowerRow {
+      display: flex;
+      font-size: 16px;
+      justify-content: space-between;
+      align-self: center;
+    }
+
+    .lowerRow * {
+      padding: 0.7em;
+      margin-left: 0.4em;
+      margin-right:  0.4em;
+      border-color: rgba(0, 0, 0, 0.12);
+      border-radius: 0.4em;
+    }
+
+    </style>
+    <!--TUTORIAL HTML ======================================= -->
+    
+    
+    <div class="tutorial-overlay" id="tutorialOverlay">
+      <div class="step" id="step1">
+        <div class="upperRow">
+          <h2>Welcome to Hwa Chong Institution Map!</h2>
+          <p>A Tutorial</p>
+          </div>
+        <div class="lowerRow">
+          <button onclick="hideOverlay()">Skip tutorial</button>
+          <button onclick="nextStep()">Next</button>
+        </div>
+      </div>
+      <div class="step" id="step2">
+        <div class="upperRow">
+          <h2>Search Bar</h2>
+          <p>Search for locations here <br> Top left (PC/laptop) <br> Center (Mobile) </p>
+        </div>
+        <div class="lowerRow">
+          <button onclick="previousStep()">Previous</button>
+          <button onclick="nextStep()">Next</button>
+        </div>
+      </div>
+      <div class="step" id="step3">
+        <div class="upperRow">
+        <h2>Locations List</h2>
+        <p>Look for locations in here <br> Found beneath the search bar</p>
+        </div>
+        <div class="lowerRow">
+          <button onclick="previousStep()">Previous</button>
+          <button onclick="nextStep()">Next</button>
+        </div>
+      </div>
+      <div class="step" id="step3">
+        <div class="upperRow">
+        <h2>Interactive Map</h2>
+        <p>Use the map to navigate. <br> Click the pins to find out more.</p>
+        </div>
+        <div class="lowerRow">
+          <button onclick="restartNow()">Restart</button>
+          <button onclick="nextStep()">Finish</button>
+        </div>
+      </div>
+
+
+
+  </div>
   </body>
+  
+    <!--TUTORIAL SCRIPT ======================================= -->
+    <script>
+      const overlay = document.getElementById('tutorialOverlay');
+      const steps = overlay.querySelectorAll('.step');
+      let currentStep = 0;
+
+      function restartNow(){
+        overlay.style.display = 'flex';
+        currentStep = 0;
+        showStep(currentStep);
+      }
+
+      function showOverlay() {
+          overlay.style.display = 'flex';
+          currentStep = 0;
+          showStep(currentStep);
+      }
+    
+
+      function showStep(stepIndex) {
+          steps.forEach((step, index) => {
+              if (index === stepIndex) {
+                  step.style.display = 'flex';
+              } else {
+                  step.style.display = 'none';
+              }
+              document.querySelector('#seggs')
+          });
+      }
+
+      function nextStep() {
+          currentStep++;
+          if (currentStep < steps.length) {
+              showStep(currentStep);
+          } else {
+              hideOverlay();
+          }
+      }
+
+      function previousStep() {
+        currentStep--;
+        if (currentStep < steps.length) {
+              showStep(currentStep);
+          } else {
+              hideOverlay();
+          }
+      }
+
+      function hideOverlay() {
+          overlay.style.display = 'none';
+          currentStep = 0;
+      }
+
+      showOverlay() 
+
+      </script>
 </html>
