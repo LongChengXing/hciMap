@@ -836,8 +836,10 @@ SEARCH API_COMMENT TO UNCOMMENT IT
         "mapOptions": {"center":{"lat":lati,"lng":long},"fullscreenControl":true,"mapTypeControl":true,"streetViewControl":true,"zoom":16,"zoomControl":true,"maxZoom":20,"mapId":""},
         "mapsApiKey": "AIzaSyC_Lw44mVq11v4mjbqwFERrK-wv4R5iHic"
       };
+      
+      function getLiveLocation(){
 
-      if (navigator.geolocation) {
+        if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
               (position) => {
                 const pos = {
@@ -854,8 +856,17 @@ SEARCH API_COMMENT TO UNCOMMENT IT
                 handleLocationError(true, infoWindow, map.getCenter());
               }
             );
+            console.log("position updated")
           }
+      }
       
+      getLiveLocation();
+      
+      function goToBrazil(){
+        CONFIGURATION.mapOptions.center.lat=1;
+        CONFIGURATION.mapOptions.center.lng=2;
+        
+      }
       
       x=fetch(`https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyC_Lw44mVq11v4mjbqwFERrK-wv4R5iHic`).then(data=>data.json()).then(data=>console.log(data));
 
@@ -905,21 +916,23 @@ SEARCH API_COMMENT TO UNCOMMENT IT
         //     y.classList.remove("highlight")
         //     y.innerHTML = y.innerText;
         // });
-        console.log('test');
+        
         [...document.querySelectorAll('li')].forEach(x => {
           let st = this.searchButton.value.trim();
           let currName = [...x.querySelectorAll('.name')][0] //button tag, class="name"
           let indexText = x.innerHTML.indexOf(currName.innerText);
           let indexSearch = currName.innerText.toLowerCase().indexOf(st.toLowerCase());
-          console.log(indexText, x.innerHTML, x.innerText);
+          //console.log(indexText, x.innerHTML, x.innerText);
           indexSearch = x.innerText.toLowerCase().indexOf(st.toLowerCase())
           if(indexSearch===-1) x.classList.add("hide");
           else{
             x.classList.remove("hide");
             // highlighted = x.innerHTML.substring(0,indexText) + currName.innerText.substring(0,indexSearch) + "<span class='highlight'>" + currName.innerText.substring(indexSearch,indexSearch+st.length) + "</span>" + currName.innerText.substring(indexSearch+st.length) + x.innerHTML.substring(indexText+currName.innerText.length);
             // x.innerHTML=`${highlighted}`;
-          }
+          }  
         });
+      getLiveLocation();
+
       }
 
       
