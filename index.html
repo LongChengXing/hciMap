@@ -189,6 +189,9 @@ SEARCH API_COMMENT TO UNCOMMENT IT
           bottom: 50%;
           left: 0;
         }
+        .hide { display:none !important; visibility:hidden;}
+
+        .highlight {background-color: #ffe89b;}
       }
 
       /* --------------------------- PLACES PANEL --------------------------- */
@@ -821,7 +824,7 @@ SEARCH API_COMMENT TO UNCOMMENT IT
         "centerMarker": {"icon":"circle"},
         "mapRadius": 1500,
         "mapOptions": {"center":{"lat":lati,"lng":long},"fullscreenControl":true,"mapTypeControl":true,"streetViewControl":true,"zoom":16,"zoomControl":true,"maxZoom":20,"mapId":""},
-        //API_COMMENT "mapsApiKey": "AIzaSyC_Lw44mVq11v4mjbqwFERrK-wv4R5iHic"
+        "mapsApiKey": "AIzaSyC_Lw44mVq11v4mjbqwFERrK-wv4R5iHic"
       };
 
       if (navigator.geolocation) {
@@ -844,7 +847,7 @@ SEARCH API_COMMENT TO UNCOMMENT IT
           }
       
       
-      //x=fetch(`https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyC_Lw44mVq11v4mjbqwFERrK-wv4R5iHic`).then(data=>data.json()).then(data=>console.log(data));
+      x=fetch(`https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyC_Lw44mVq11v4mjbqwFERrK-wv4R5iHic`).then(data=>data.json()).then(data=>console.log(data));
 
       let map, infoWindow;
       
@@ -888,23 +891,26 @@ SEARCH API_COMMENT TO UNCOMMENT IT
    
      
       function filterList(){
-        let text= this.searchButton.value;
-        console.log(text);
-        [...document.querySelectorAll('li')].forEach(x => {
-          console.log(x);
-          
-          //let result=x.innerText.includes(text);
-          
-          // if(!result) x.classList.add("hide");
-          // else{
-          //   x.classList.remove("hide");
-          //   index=x.innerText.indexOf(text);
-          //   console.log(index,text.length);
-          //   highLight= x.innerText.substring(0,index) + "<span class='highlight'>" + x.innerText.substring(index,index+text.length) + "</span>" + x.innerText.substring(index+text.length , x.length);
-          //  x.innerHTML=`<span>${highLight}</span><i class="fas fa-trash-alt"></i>`;
-          // }
+        [...document.getElementsByClassName("highlight")].forEach(y => {
+            y.classList.remove("highlight")
+            y.innerHTML = y.innerText;
         });
-      }
+        console.log('test');
+        [...document.querySelectorAll('li')].forEach(x => {
+          let st = this.searchButton.value.trim();
+          let currName = [...x.querySelectorAll('.name')][0] //button tag, class="name"
+          let indexText = x.innerHTML.indexOf(currName.innerText);
+          let indexSearch = currName.innerText.toLowerCase().indexOf(st.toLowerCase());
+          console.log(indexText, x.innerHTML, x.innerText);
+          indexSearch = x.innerText.toLowerCase().indexOf(st.toLowerCase())
+          if(indexSearch===-1) x.classList.add("hide");
+          else{
+            x.classList.remove("hide");
+            highlighted = x.innerHTML.substring(0,indexText) + currName.innerText.substring(0,indexSearch) + "<span class='highlight'>" + currName.innerText.substring(indexSearch,indexSearch+st.length) + "</span>" + currName.innerText.substring(indexSearch+st.length) + x.innerHTML.substring(indexText+currName.innerText.length);
+            x.innerHTML=`${highlighted}`;
+          }
+        });
+      }
 
       
     
@@ -979,8 +985,8 @@ SEARCH API_COMMENT TO UNCOMMENT IT
       <div class="places-panel panel no-scroll">
         <div class="results">
           <div id = "searchBar">
-            <input type="text" id="searchButton" onkeyup="filterList()" placeholder="Search..."/>
-            <input type="button" id="seggs" value="🔍"/>
+            <input type="text" id="searchButton"  placeholder="Search..."/>
+            <input type="button" id="seggs" value="🔍" onclick="filterList()"/>
           </div>
           <ul class="place-results-list"></ul>
         </div>
@@ -1008,7 +1014,7 @@ SEARCH API_COMMENT TO UNCOMMENT IT
         <path d="M13 0C5.817 0 0 5.93 0 13.267c0 7.862 5.59 10.81 9.555 17.624C12.09 35.248 11.342 38 13 38c1.723 0 .975-2.817 3.445-7.043C20.085 24.503 26 21.162 26 13.267 26 5.93 20.183 0 13 0Z"/>
       </svg>
     </div>
-    <!-- API_COMMENT <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC_Lw44mVq11v4mjbqwFERrK-wv4R5iHic&callback=initMap&libraries=places,geometry&solution_channel=GMP_QB_neighborhooddiscovery_v2_cBC" async defer></script> -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC_Lw44mVq11v4mjbqwFERrK-wv4R5iHic&callback=initMap&libraries=places,geometry&solution_channel=GMP_QB_neighborhooddiscovery_v2_cBC" async defer></script>
     
     
     <!--TUTORIAL STYLE ======================================= -->
